@@ -24,6 +24,9 @@ def load_all_months():
             idx = month_index(year, month)
             load_month(year, month, months[idx])
 
+# endast pass för perioden är 1.1.2026–31.12.2035 kan programmet processera
+def valid_year_month(year, month):
+    return 2026 <= year <= 2035 and 1 <= month <= 12
 
 '''
 Text-baserad meny:
@@ -47,6 +50,11 @@ def add_session():
     year = int(input("År: "))
     month = int(input("Månad: "))
     day = int(input("Dag: "))
+
+    if not valid_year_month(year, month):
+        print("Ogiltigt år eller månad. Måste vara perioden 1.1.2026–31.12.2035")
+        return
+
     distance = float(input("Sträcka (km): "))
     hours = int(input("Timmar: "))
     minutes = int(input("Minuter: "))
@@ -63,13 +71,18 @@ def add_session():
     save_month(year, month, months[idx]) #storage
     print("Pass tillagt!")
 
+
 # alternativ 1.
 def view_day():
-    #använda inputs
+    #användar inputs
     print("\n", "Välj ett pass att visa för perioden 1.1.2026–31.12.2035")
     year = int(input("År: "))
     month = int(input("Månad: "))
     day = int(input("Dag: "))
+
+    if not valid_year_month(year, month):
+        print("Ogiltigt år eller månad. Måste vara perioden 1.1.2026–31.12.2035")
+        return
 
     idx = month_index(year, month)
     found = False # variablel som ändras endast när den är hittad
@@ -86,6 +99,10 @@ def remove_session():
     year = int(input("År: "))
     month = int(input("Månad: "))
     day = int(input("Dag: "))
+
+    if not valid_year_month(year, month):
+        print("Ogiltigt år eller månad. Måste vara perioden 1.1.2026–31.12.2035")
+        return
 
     idx = month_index(year, month)
     target_date = date(year, month, day)
@@ -109,6 +126,7 @@ def remove_session():
     else:
         print("Ogiltigt val.")
 
+        
 # main funktionen, kallar på functionerna beroende på användar input alternativ
 def main():
     while True:
