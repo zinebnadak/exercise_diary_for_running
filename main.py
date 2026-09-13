@@ -1,6 +1,7 @@
 
 from datetime import date
 from models import Session, Duration
+from storage import save_month, load_month
 
 
 '''
@@ -15,6 +16,13 @@ months = [MonthList() for _ in range(120)]
 # function som räknar ut vilket index (0–119) en viss månad/år ska ha i months listan
 def month_index(year, month):
     return (year - 2026) * 12 + (month - 1)
+
+# behövs för att fylla months-listan med data från tidigare sparade filer, varje gång programmet startar om
+def load_all_months():
+    for year in range(2026, 2036):
+        for month in range(1, 13):
+            idx = month_index(year, month)
+            load_month(year, month, months[idx])
 
 
 '''
@@ -52,6 +60,7 @@ def add_session():
     # tar den nya sessionen och placerar den på rätt plats i months listan med 120 element
     idx = month_index(year, month)
     months[idx].insert(session)
+    save_month(year, month, months[idx]) #storage
     print("Pass tillagt!")
 
 # alternativ 1.
@@ -95,6 +104,7 @@ def remove_session():
     choice = int(input("Vilket pass vill du ta bort (nummer)? "))
     if 0 <= choice < len(matches):
         months[idx].remove(matches[choice])
+        save_month(year, month, months[idx]) #storage
         print("Pass borttaget!")
     else:
         print("Ogiltigt val.")
@@ -116,4 +126,5 @@ def main():
             print("Ogiltigt val")
 
 if __name__ == "__main__":
+    load_all_months()   
     main()
