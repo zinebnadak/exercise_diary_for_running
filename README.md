@@ -9,11 +9,13 @@ This project implements a running training diary using custom dataclasses and ha
 - Training sessions modeled with `@dataclass`
 - Sessions stored in a custom sorted linked list per month
 - Add and delete sessions from the linked list
-- Text-based UI to view, add, and delete sessions
+- Text-based UI to add, and delete sessions and view whole calendar (sessions added on a day is market with * on the calendar)
 - Sessions saved to and loaded from files (JSON, one per month)
-- Calendar view showing sessions per month
 - Modular code structure
 - Developed in small, descriptive commits
+
+## Known limitations/choices
+- The calendar view is a static, one-time printout (year/month entered manually via the menu) rather than an interactive, navigable view. It does not support arrow-key navigation between days/months. Sessions on a given day are marked with a simple `*` rather than a highlighted/bracketed selection.
 
 ## Running it
 ```python main.py```
