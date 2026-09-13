@@ -31,30 +31,28 @@ class MonthList:
 
     # TA BORT SESSION
     def remove(self, session):
+        # tom lista, inget att ta bort
+        if self.head is None:
+            return False  
 
-    # tom lista, inget att ta bort
-    if self.head is None:
-        return False  
-    
-    # specialfall ta bort FÖRSTA noden
-    if self.head.session == session:  
-        self.head = self.head.next
-        return True
-
-    # leta i resten av listan
-    current = self.head 
-    while current.next is not None:
-        if current.next.session == session:
-            current.next = current.next.next  # hoppa över den bort tagna noden
+        # specialfall ta bort FÖRSTA noden
+        if self.head.session == session:  
+            self.head = self.head.next
             return True
-        current = current.next
 
-    return False  # sessionen hittades inte
+        # leta i resten av listan
+        current = self.head 
+        while current.next is not None:
+            if current.next.session == session:
+                current.next = current.next.next  # hoppa över den bort tagna noden
+                return True
+            current = current.next
+
+        return False  # sessionen hittades inte
 
     # DENNA Functionen gör länkade listan MonthList TRAVERSERBAR, eg så man inte behöver skriva ut hela traverseringen manuellt varje gång
-        def __iter__(self): # specialmetoden __iter__
-            current = self.head # Skapar en temporär pekare som startar vid första noden 
-            while current is not None: # ortsätt så länge vi inte är i slutet
-                yield current.session # yield "ger tillbaka", datan som finns lagrad i den aktuella noden
-                current = current.next
-    
+    def __iter__(self): # specialmetoden __iter__
+        current = self.head # Skapar en temporär pekare som startar vid första noden 
+        while current is not None: # ortsätt så länge vi inte är i slutet
+            yield current.session # yield "ger tillbaka", datan som finns lagrad i den aktuella noden
+            current = current.next
