@@ -2,6 +2,7 @@
 from datetime import date
 from models import Session, Duration
 from storage import save_month, load_month
+from calendar_view import print_calendar
 
 
 '''
@@ -41,7 +42,8 @@ def show_menu():
     print("1. Visa pass för en dag")
     print("2. Lägg till pass")
     print("3. Ta bort pass")
-    print("4. Avsluta")
+    print("4. Visa kalender")
+    print("5. Avsluta")
 
 # alternativ 2.
 def add_session():
@@ -126,7 +128,7 @@ def remove_session():
     else:
         print("Ogiltigt val.")
 
-        
+
 # main funktionen, kallar på functionerna beroende på användar input alternativ
 def main():
     while True:
@@ -139,6 +141,13 @@ def main():
         elif choice == "3":
             remove_session()
         elif choice == "4":
+            year = int(input("År: "))
+            month = int(input("Månad: "))
+            if valid_year_month(year, month):
+                print_calendar(year, month, months, month_index)
+            else:
+                print("Ogiltigt år eller månad.")
+        elif choice == "5":
             break
         else:
             print("Ogiltigt val")
